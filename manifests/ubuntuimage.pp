@@ -10,7 +10,9 @@ class puppetfactory::ubuntuimage {
 
   file { '/var/docker/ubuntuagent/Dockerfile':
     ensure  => present,
-    content => template('puppetfactory/ubuntu.dockerfile.erb'),
+    content => epp('puppetfactory/ubuntu.dockerfile.epp',{
+        'puppetmaster' => $puppetmaster
+      }),
     require => File['/var/docker/ubuntuagent/'],
     notify => Docker::Image['ubuntuagent'],
   }

@@ -1,3 +1,7 @@
+## Version 0.5.8
+* Split out containers to separate classes
+* Removed unused default_class parameter
+
 ## Version 0.5.7
 * Split dockerimages to a separate manifest
 * Improved gitea support

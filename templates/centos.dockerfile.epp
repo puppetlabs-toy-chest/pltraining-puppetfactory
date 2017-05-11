@@ -10,7 +10,6 @@ ADD base_local.repo /etc/yum.repos.d/base_local.repo
 ADD epel_local.repo /etc/yum.repos.d/epel_local.repo
 ADD updates_local.repo /etc/yum.repos.d/updates_local.repo
 ADD vimrc /root/.vimrc
-ADD rubygems /var/cache/rubygems
 RUN echo 'if ! hash puppet; then curl -k https://<%= $puppetmaster %>:8140/packages/current/install.bash | sudo bash; fi' >> /root/.bashrc
 RUN mkdir -p /etc/puppetlabs/code/modules
 EXPOSE 3306 80

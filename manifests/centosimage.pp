@@ -20,10 +20,27 @@ class puppetfactory::centosimage (
     ensure => directory,
     before => Mount['/var/docker/centosagent/mirror'],
   }
+
   mount {'/var/docker/centosagent/mirror':
     ensure  => mounted,
     atboot  => true,
     device  => '/var/yum/mirror',
+    fstype  => 'xfs',
+    options => 'bind',
+    before  => Docker::Image['centosagent']
+  }
+
+  # Mount the gem cache directory because docker doesn't follow symlinks
+  # mount --bind /var/cache/rubygems rubygems
+  file {'/var/docker/centosagent/rubygems':
+    ensure => directory,
+    before => Mount['/var/docker/centosagent/rubygems'],
+  }
+
+  mount {'/var/docker/centosagent/rubygems':
+    ensure  => mounted,
+    atboot  => true,
+    device  => '/var/cache/rubygems',
     fstype  => 'xfs',
     options => 'bind',
     before  => Docker::Image['centosagent']
@@ -34,13 +51,11 @@ class puppetfactory::centosimage (
     content => epp('puppetfactory/centos.dockerfile.epp',{
         'puppetmaster' => $master_address,
       }),
-    require => File['/var/docker/centosagent/'],
-    notify => Docker::Image['centosagent'],
+    notify  => Docker::Image['centosagent'],
   }
 
   docker::image { 'centosagent':
     docker_dir => '/var/docker/centosagent/',
-    require     => File['/var/docker/centosagent/Dockerfile'],
   }
 }
 

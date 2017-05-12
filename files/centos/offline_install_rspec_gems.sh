@@ -19,3 +19,10 @@ done
 for GEM in ${SERVERSPEC_GEMS}; do
   /opt/puppetlabs/puppet/bin/gem install -l ${CACHEDIR}/${GEM}*.gem
 done
+
+# Link the serverspec-init binary to /usr/local/bin so it's easier to
+# access and fits better with the student exercise notes. Ideally, it's
+# installed with the system `gem` command, but we're installing it with
+# the Puppet-vendored `gem` command in order to cut down on the number of
+# additional deps needed to install with the system `gem` command.
+ln -s /opt/puppetlabs/puppet/bin/serverspec-init /usr/local/bin

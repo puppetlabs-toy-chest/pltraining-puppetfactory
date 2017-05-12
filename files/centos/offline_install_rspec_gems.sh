@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CACHEDIR=/var/cache/rubygems
+CACHEDIR=/var/cache/rubygems/gems
 RSPEC_PUPPET_GEMS='diff-lcs rspec-support rspec-mocks rspec-expectations rspec-core rspec rspec-puppet'
 PSH_GEMS='metaclass mocha puppet-syntax puppet-lint puppetlabs_spec_helper'
 SERVERSPEC_GEMS='sfl net-telnet net-scp specinfra multi_json rspec-its serverspec'

@@ -16,7 +16,7 @@
     }
   ],
   "name": "pltraining-puppetfactory",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "author": "pltraining",
   "summary": "Manages Puppet training classroom environments",
   "license": "Apache 2.0",

@@ -1,3 +1,7 @@
+## Version 0.5.9
+* Cache gems in containers
+* Remove yum mirror mount inside container
+
 ## Version 0.5.8
 * Split out containers to separate classes
 * Removed unused default_class parameter

@@ -9,8 +9,6 @@ class puppetfactory::dockerenv {
     before => Class['docker'],
   }
 
-  $puppetmaster = pick($puppetfactory::master, $servername)
-
   sysctl {'net.ipv4.ip_forward':
     ensure    => present,
     value     => '1',
@@ -27,7 +25,12 @@ class puppetfactory::dockerenv {
     ensure => present,
   }
 
-  include puppetfactory::centosimage
-  include puppetfactory::ubuntuimage
-}
+  file { '/var/docker':
+    ensure => directory,
+  }
 
+  class { [ 'puppetfactory::centosimage', 'puppetfactory::ubuntuimage']:
+    puppetmaster => pick($puppetfactory::master, $servername),
+  }
+
+}

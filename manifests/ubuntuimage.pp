@@ -1,4 +1,6 @@
-class puppetfactory::ubuntuimage {
+class puppetfactory::ubuntuimage (
+  $puppetmaster,
+) {
 
   # Ubuntu agent image
   file { '/var/docker/ubuntuagent/':
@@ -11,16 +13,13 @@ class puppetfactory::ubuntuimage {
   file { '/var/docker/ubuntuagent/Dockerfile':
     ensure  => present,
     content => epp('puppetfactory/ubuntu.dockerfile.epp',{
-        'puppetmaster' => $puppetmaster
+        'puppetmaster' => $puppetmaster,
       }),
-    require => File['/var/docker/ubuntuagent/'],
-    notify => Docker::Image['ubuntuagent'],
+    notify  => Docker::Image['ubuntuagent'],
   }
 
   docker::image { 'ubuntuagent':
     docker_dir => '/var/docker/ubuntuagent/',
-    require     => File['/var/docker/ubuntuagent/Dockerfile'],
+    require    => File['/var/docker/ubuntuagent/Dockerfile'],
   }
-  
 }
-

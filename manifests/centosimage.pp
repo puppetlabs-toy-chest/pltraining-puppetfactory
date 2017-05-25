@@ -1,10 +1,6 @@
 class puppetfactory::centosimage (
-  $master_address = $puppetmaster,
+  $puppetmaster,
 ) {
-
-  file { '/var/docker':
-    ensure => directory,
-  }
 
   # CentOS agent image
   file { '/var/docker/centosagent/':
@@ -17,12 +13,13 @@ class puppetfactory::centosimage (
   file { '/var/docker/centosagent/Dockerfile':
     ensure  => present,
     content => epp('puppetfactory/centos.dockerfile.epp',{
-        'puppetmaster' => $master_address,
+        'puppetmaster' => $puppetmaster,
       }),
     notify  => Docker::Image['centosagent'],
   }
 
   docker::image { 'centosagent':
     docker_dir => '/var/docker/centosagent/',
+    require    => File['/var/docker/centosagent/Dockerfile'],
   }
 }

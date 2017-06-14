@@ -29,8 +29,12 @@ class puppetfactory::dockerenv {
     ensure => directory,
   }
 
-  class { [ 'puppetfactory::centosimage', 'puppetfactory::ubuntuimage']:
+  class { [ 'puppetfactory::ubuntuimage']:
     puppetmaster => pick($puppetfactory::master, $servername),
+  }
+  dockeragent::image { 'centosagent':
+    install_agent => true,
+    yum_cache     => true,
   }
 
 }

@@ -1,0 +1,6 @@
+[local]
+baseurl=https://master.puppetlabs.vm:8140/packages/yum/mirror
+gpgcheck=0
+enabled=1
+name=Locally stored packages
+priority=10

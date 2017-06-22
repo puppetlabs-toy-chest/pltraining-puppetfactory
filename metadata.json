@@ -32,6 +32,7 @@
     {"name":"puppetlabs/concat"},
     {"name":"puppetlabs/inifile",                "version_requirement":">= 1.2.0"},
     {"name":"puppetlabs/stdlib",                 "version_requirement":">= 4.5.1"},
+    {"name":"pltraining/dockeragent"},
     {"name":"pltraining/userprefs",              "version_requirement":">= 1.0.15"},
     {"name":"pltraining/rbac",                   "version_requirement":">= 0.0.2"},
     {"name":"stahnma/epel",                      "version_requirement":">= 1.0.2"},

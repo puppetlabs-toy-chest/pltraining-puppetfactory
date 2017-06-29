@@ -1,3 +1,6 @@
+## Version 0.5.10
+* Fix dockerfile so that agent url points at the master
+
 ## Version 0.5.9
 * Cache gems in containers
 * Remove yum mirror mount inside container

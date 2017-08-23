@@ -39,6 +39,7 @@ class puppetfactory (
 
   Optional[Enum['single', 'peruser']] $repomodel              = undef,
   Optional[Enum['readwrite', 'readonly', 'none']] $modulepath = undef,
+  Optional[Enum['yes','no']] $allow_root                       = undef,
 
 ) inherits puppetfactory::params {
   # TODO: port these to use puppet-tea and puppet-ip
@@ -104,7 +105,7 @@ class puppetfactory (
             '/etc/puppetfactory/hooks/',
             '/etc/puppetfactory/hooks/create',
             '/etc/puppetfactory/hooks/delete',
-           ]
+  ]
 
   file { $hooks:
     ensure => directory,
@@ -128,15 +129,21 @@ class puppetfactory (
 
   # Keep ssh sessions alive and allow puppetfactory users to log in with passwords
   # disable root login on EC2 but enable everywhere else
-  $allow_root = $ec2_metadata ? {
-    undef   => 'yes',
-    default => 'no',
+
+  $_allow_root = $allow_root ? {
+
+    undef => $::ec2_metadata ? {
+      undef   => 'yes',
+      default => 'no',
+    },
+    default => $allow_root,
   }
-  class { "ssh::server":
+
+  class { '::ssh::server':
     client_alive_interval          => 300,
     client_alive_count_max         => 2,
-    password_authentication        => $allow_root,
-    permit_root_login              => $allow_root,
+    password_authentication        => $_allow_root,
+    permit_root_login              => $_allow_root,
     password_authentication_groups => ['puppetfactory'],
     use_pam                        => 'yes',
     host_keys                      => ['/etc/ssh/ssh_host_rsa_key','/etc/ssh/ssh_host_ecdsa_key', '/etc/ssh/ssh_host_ed25519_key'],

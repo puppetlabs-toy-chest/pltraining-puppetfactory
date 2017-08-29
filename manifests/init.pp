@@ -118,7 +118,7 @@ class puppetfactory (
   file_line { 'remove tty requirement':
     path  => '/etc/sudoers',
     line  => '#Defaults    requiretty',
-    match => '^\s*Defaults    requiretty',
+    match => 'Defaults\s*requiretty$',
   }
 
   file { '/etc/issue.net':

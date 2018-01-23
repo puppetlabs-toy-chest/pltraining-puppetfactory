@@ -15,6 +15,18 @@ class puppetfactory::dockerenv {
     permanent => 'yes',
   }
 
+  # See https://jhutar.blogspot.cz/2017/12/error-too-many-open-files-when-inside.html
+  sysctl {'fs.inotify.max_user_instances':
+    ensure    => present,
+    value     => '8192',
+    permanent => 'yes',
+  }
+  sysctl {'fs.inotify.max_user_watches':
+    ensure    => present,
+    value     => '1048576',
+    permanent => 'yes',
+  }
+
   file { '/var/run/docker.sock':
     group   => $puppetfactory::docker_group,
     mode    => '0664',

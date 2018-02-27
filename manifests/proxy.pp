@@ -34,9 +34,9 @@ class puppetfactory::proxy {
     ensure => file,
     source  => 'puppet:///modules/puppetfactory/html/404.html',
   }
-  file { '/etc/puppetfactory/html/50x.html':
+  file { '/etc/puppetfactory/html/502.html':
     ensure => file,
-    source  => 'puppet:///modules/puppetfactory/html/50x.html',
+    source  => 'puppet:///modules/puppetfactory/html/502.html',
   }
 
   # This will allow the nginx proxy rules to work with selinux enabled
